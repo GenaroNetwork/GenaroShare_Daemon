@@ -1,0 +1,124 @@
+{
+  "_from": "genaroshare-daemon",
+  "_id": "genaroshare-daemon@1.0.8",
+  "_inBundle": false,
+  "_integrity": "sha512-NdFYX0pyJ8xuLeQdGogMQx0JlSyc/RCcoSrKl1r46J8MX51dt80p6gIYo2vEkKaXg54jxpE4WnGsVM5GautVVg==",
+  "_location": "/genaroshare-daemon",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "genaroshare-daemon",
+    "name": "genaroshare-daemon",
+    "escapedName": "genaroshare-daemon",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/genaroshare-daemon/-/genaroshare-daemon-1.0.8.tgz",
+  "_shasum": "85895fcc3191af21366ab0f5729f229e78735fac",
+  "_spec": "genaroshare-daemon",
+  "_where": "/Users/weilongwu/Genaro_new_daemon",
+  "author": {
+    "name": "Alexander Leitner",
+    "email": "alex@storj.io"
+  },
+  "bin": {
+    "genaroshare": "bin/genaroshare.js",
+    "genaroshare-cert": "bin/genaroshare-cert.js",
+    "genaroshare-stake": "bin/genaroshare-stake.js",
+    "genaroshare-start": "bin/genaroshare-start.js",
+    "genaroshare-stop": "bin/genaroshare-stop.js",
+    "genaroshare-restart": "bin/genaroshare-restart.js",
+    "genaroshare-status": "bin/genaroshare-status.js",
+    "genaroshare-logs": "bin/genaroshare-logs.js",
+    "genaroshare-save": "bin/genaroshare-save.js",
+    "genaroshare-load": "bin/genaroshare-load.js",
+    "genaroshare-killall": "bin/genaroshare-killall.js",
+    "genaroshare-destroy": "bin/genaroshare-destroy.js",
+    "genaroshare-daemon": "bin/genaroshare-daemon.js",
+    "genaroshare-create": "bin/genaroshare-create.js"
+  },
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "Gordon Hall",
+      "email": "gordon@storj.io"
+    },
+    {
+      "name": "littleskunk",
+      "url": "https://github.com/littleskunk"
+    },
+    {
+      "name": "Steve Ashman",
+      "url": "https://github.com/ssa3512"
+    },
+    {
+      "name": "Genaro Sanada",
+      "url": "https://github.com/genaro_sanada"
+    }
+  ],
+  "dependencies": {
+    "async": "^2.5.0",
+    "bip39": "^2.5.0",
+    "blindfold": "0.0.1",
+    "bytes": "^3.0.0",
+    "cli-table": "^0.3.1",
+    "colors": "^1.1.2",
+    "commander": "^2.11.0",
+    "daemon": "github:zipang/daemon.node#48d0977c26fb3a6a44ae99aae3471b9d5a761085",
+    "diskusage": "^0.2.4",
+    "dnode": "^1.2.2",
+    "du": "^0.1.0",
+    "editor": "^1.0.0",
+    "eth-lightwallet": "^3.0.1",
+    "ethereumjs-tx": "^1.3.3",
+    "fslogger": "^2.0.2",
+    "kad-logger-json": "^0.1.2",
+    "mkdirp": "^0.5.1",
+    "pretty-ms": "^3.0.1",
+    "rc": "^1.2.2",
+    "storj-lib": "^8.5.0",
+    "strip-json-comments": "^2.0.1",
+    "tail": "^1.2.3",
+    "touch": "3.1.0",
+    "web3": "^1.0.0-beta.30",
+    "web3-utils": "^1.0.0-beta"
+  },
+  "deprecated": false,
+  "description": "daemon + process manager for sharing space on the genaro network",
+  "devDependencies": {
+    "chai": "^2.2.0",
+    "coveralls": "^2.11.2",
+    "istanbul": "^0.3.13",
+    "jshint": "2.8.0",
+    "mocha": "^2.2.4",
+    "proxyquire": "^1.7.3",
+    "sinon": "^1.14.1"
+  },
+  "directories": {
+    "test": "test",
+    "lib": "lib"
+  },
+  "keywords": [
+    "storj",
+    "farmer",
+    "genaroshare",
+    "share"
+  ],
+  "license": "AGPL-3.0",
+  "main": "index.js",
+  "name": "genaroshare-daemon",
+  "preferGlobal": true,
+  "scripts": {
+    "coverage": "STORJ_ALLOW_LOOPBACK=1 ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --recursive",
+    "linter": "jshint --config .jshintrc ./index.js ./lib ./test ./bin",
+    "test": "npm run testsuite && npm run linter",
+    "testsuite": "STORJ_ALLOW_LOOPBACK=1 ./node_modules/.bin/mocha test/** --recursive"
+  },
+  "version": "1.0.8"
+}
