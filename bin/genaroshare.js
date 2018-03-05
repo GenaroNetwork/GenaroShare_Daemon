@@ -4,7 +4,11 @@
 
 const genaroshare = require('commander');
 const {version, bin} = require('../package');
+process.env.STORJ_NETWORK = 'gtest';
 const {software: core, protocol} = require('storj-lib').version;
+
+console.log(core);
+console.log(protocol);
 
 function checkIfValidSubcommand() {
   if (process.argv.length > 2) {
@@ -20,9 +24,8 @@ function checkIfValidSubcommand() {
 
 genaroshare
   .version(`daemon: ${version}, core: ${core}, protocol: ${protocol}`)
-  .command('stake', 'stake for farming (mandatory)')
-  .command('cert', 'certificate and get mining reward')
   .command('start', 'start a farming node')
+  .command('stake', 'stake the farming node')
   .command('stop', 'stop a farming node')
   .command('restart', 'restart a farming node')
   .command('status', 'check status of node(s)')

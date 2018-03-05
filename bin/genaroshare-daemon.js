@@ -2,6 +2,8 @@
 
 'use strict';
 
+process.env.STORJ_NETWORK = 'gtest';
+
 const daemonize = require('daemon');
 const dnode = require('dnode');
 const RPC = require('../lib/api');

@@ -2,9 +2,12 @@
 
 'use strict';
 
+process.env.STORJ_NETWORK = 'gtest';
+
 const config = require('../lib/config/daemon');
 const utils = require('../lib/utils');
 const genaroshare_destroy = require('commander');
+
 
 genaroshare_destroy
   .description('stops a running node and removes it from status')

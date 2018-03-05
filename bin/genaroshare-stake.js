@@ -1,3 +1,9 @@
+#!/usr/bin/env node
+
+'use strict';
+
+process.env.STORJ_NETWORK = 'gtest';
+
 const {spawn} = require('child_process');
 const utils = require('../lib/utils');
 const path = require('path');

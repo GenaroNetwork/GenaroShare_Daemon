@@ -92,6 +92,7 @@ genaroshare --help
   Commands:
 
     start       start a farming node
+    stake       stake the farming node
     stop        stop a farming node
     restart     restart a farming node
     status      check status of node(s)
@@ -119,19 +120,23 @@ genaroshare help create
 
   Options:
 
-    -h, --help                 output usage information
-    --wallet <addr>            specify the ETH address (required)
+    --name <name>              specify the account name(required)
+    --password <password>      specify the account password(required)
     --key <privkey>            specify the private key
     --storage <path>           specify the storage path
-    --size <maxsize>           specify share size (ex: 10GB, 1TB)
+    --size <maxsize>           specify node size (ex: 10GB, 1TB)
     --rpcport <port>           specify the rpc port number
     --rpcaddress <addr>        specify the rpc address
     --maxtunnels <tunnels>     specify the max tunnels
     --tunnelportmin <port>     specify min gateway port
     --tunnelportmax <port>     specify max gateway port
     --manualforwarding         do not use nat traversal strategies
+    --verbosity <verbosity>    specify the logger verbosity
     --logdir <path>            specify the log directory
     --noedit                   do not open generated config in editor
+    -o, --outfile <writepath>  write config to path
+    -h, --help                 output usage information
+
     -o, --outfile <writepath>  write config to path
 ```
 
@@ -268,6 +273,7 @@ genaroshare --help
   Commands:
 
     start       start a farming node
+    stake       stake the farming node    
     stop        stop a farming node
     restart     restart a farming node
     status      check status of node(s)
@@ -295,20 +301,23 @@ genaroshare help create
 
   Options:
 
-    -h, --help                 output usage information
-    --wallet <addr>            specify the ETH address (required)
+    --name <name>              specify the account name(required)
+    --password <password>      specify the account password(required)
     --key <privkey>            specify the private key
     --storage <path>           specify the storage path
-    --size <maxsize>           specify share size (ex: 10GB, 1TB)
+    --size <maxsize>           specify node size (ex: 10GB, 1TB)
     --rpcport <port>           specify the rpc port number
     --rpcaddress <addr>        specify the rpc address
     --maxtunnels <tunnels>     specify the max tunnels
     --tunnelportmin <port>     specify min gateway port
     --tunnelportmax <port>     specify max gateway port
     --manualforwarding         do not use nat traversal strategies
+    --verbosity <verbosity>    specify the logger verbosity
     --logdir <path>            specify the log directory
     --noedit                   do not open generated config in editor
     -o, --outfile <writepath>  write config to path
+    -h, --help                 output usage information
+
 ```
 
 ## 配置 Daemon
@@ -352,6 +361,7 @@ genaroshare load
 在安装 genaroshare 完成后需要做以下操作开始分享硬盘
 1. 创建配置文件: genaroshare-create 。完成后输出配置文件路径。
 2. 按照需求，修改创建好的配置文件
-3. 开启 daemon: genaroshare-daemon
-4. 开始 farming genaroshare-start -c <配置文件路径>
-5. 查看分享状态 genaroshare-status
+3. 使用genaroshare-stake开始stake自己的nodeid。完成后会获得一个txhash。
+4. 开启 daemon: genaroshare-daemon
+5. 开始 farming: genaroshare-start -c <配置文件路径>
+6. 查看分享状态 genaroshare-status

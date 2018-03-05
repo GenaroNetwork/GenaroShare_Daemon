@@ -1,6 +1,6 @@
 {
-  // Set the ERC20 wallet address for receiving contract payments
-  "paymentAddress": "",
+  // Set the STORJ/ERC20 wallet address for receiving contract payments
+  "paymentAddress": "0x38820cCdf01BB7A9FCf011Bb0E89D39477B409a7",
   // Subscribes to the given contract topics
   // See https://storj.github.io/core/tutorial-contract-topics.html
   "opcodeSubscriptions": [

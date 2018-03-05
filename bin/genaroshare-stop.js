@@ -2,6 +2,8 @@
 
 'use strict';
 
+process.env.STORJ_NETWORK = 'gtest';
+
 const config = require('../lib/config/daemon');
 const utils = require('../lib/utils');
 const genaroshare_stop = require('commander');

@@ -2,6 +2,8 @@
 
 'use strict';
 
+process.env.STORJ_NETWORK = 'gtest';
+
 const prettyMs = require('pretty-ms');
 const config = require('../lib/config/daemon');
 const utils = require('../lib/utils');

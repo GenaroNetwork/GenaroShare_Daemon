@@ -22,16 +22,15 @@
   "_resolved": "https://registry.npmjs.org/genaroshare-daemon/-/genaroshare-daemon-1.0.8.tgz",
   "_shasum": "85895fcc3191af21366ab0f5729f229e78735fac",
   "_spec": "genaroshare-daemon",
-  "_where": "/Users/weilongwu/Genaro_new_daemon",
+  "_where": "/Users/weilongwu",
   "author": {
     "name": "Alexander Leitner",
     "email": "alex@storj.io"
   },
   "bin": {
     "genaroshare": "bin/genaroshare.js",
-    "genaroshare-cert": "bin/genaroshare-cert.js",
-    "genaroshare-stake": "bin/genaroshare-stake.js",
     "genaroshare-start": "bin/genaroshare-start.js",
+    "genaroshare-stake": "bin/genaroshare-stake.js",
     "genaroshare-stop": "bin/genaroshare-stop.js",
     "genaroshare-restart": "bin/genaroshare-restart.js",
     "genaroshare-status": "bin/genaroshare-status.js",
@@ -56,16 +55,13 @@
     {
       "name": "Steve Ashman",
       "url": "https://github.com/ssa3512"
-    },
-    {
-      "name": "Genaro Sanada",
-      "url": "https://github.com/genaro_sanada"
     }
   ],
   "dependencies": {
     "async": "^2.5.0",
     "bip39": "^2.5.0",
     "blindfold": "0.0.1",
+    "bluebird": "^3.5.1",
     "bytes": "^3.0.0",
     "cli-table": "^0.3.1",
     "colors": "^1.1.2",
@@ -76,7 +72,6 @@
     "du": "^0.1.0",
     "editor": "^1.0.0",
     "eth-lightwallet": "^3.0.1",
-    "ethereumjs-tx": "^1.3.3",
     "fslogger": "^2.0.2",
     "kad-logger-json": "^0.1.2",
     "mkdirp": "^0.5.1",

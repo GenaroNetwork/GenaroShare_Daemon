@@ -43,8 +43,6 @@ config.storageManager = new storj.StorageManager(
 
 const farmer = storj.Farmer(config);
 
-config.log(farmer);
-
 config.logger.on('log', () => farmerState.lastActivity = Date.now());
 config.logger.pipe(process.stdout);
 

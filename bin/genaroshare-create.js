@@ -2,6 +2,8 @@
 
 'use strict';
 
+process.env.STORJ_NETWORK = 'gtest';
+
 const blindfold = require('blindfold');
 const editor = require('editor');
 const {homedir} = require('os');
