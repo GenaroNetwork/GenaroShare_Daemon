@@ -2,7 +2,7 @@
 
 'use strict';
 
-process.env.STORJ_NETWORK = 'gtest';
+require('./globalsetting');
 
 const daemonize = require('daemon');
 const dnode = require('dnode');

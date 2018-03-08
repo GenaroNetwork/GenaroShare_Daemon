@@ -2,7 +2,7 @@
 
 'use strict';
 
-process.env.STORJ_NETWORK = 'gtest';
+require('./globalsetting');
 
 const config = require('../lib/config/daemon');
 const utils = require('../lib/utils');

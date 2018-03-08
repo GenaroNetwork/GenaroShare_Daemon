@@ -2,7 +2,7 @@
 
 'use strict';
 
-process.env.STORJ_NETWORK = 'gtest';
+require('./globalsetting');
 
 const {spawn} = require('child_process');
 const utils = require('../lib/utils');

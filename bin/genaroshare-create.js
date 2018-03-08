@@ -2,7 +2,7 @@
 
 'use strict';
 
-process.env.STORJ_NETWORK = 'gtest';
+require('./globalsetting');
 
 const blindfold = require('blindfold');
 const editor = require('editor');
