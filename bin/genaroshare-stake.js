@@ -99,11 +99,12 @@ function toUTF8Array(str) {
 }
 
 function getAddressStaked(key){
+  var gasPrice, Contract;  
   if (typeof web3 !== 'undefined') {
-    web3 = new Web3(web3.currentProvider);
+    var web3 = new Web3(web3.currentProvider);
   } else {
     // set the provider you want from Web3.providers
-    web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/wYBhtj2SSUB7qlztqEjx"));
+    var web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/wYBhtj2SSUB7qlztqEjx"));
     web3.eth.getGasPrice()
     .then((gp)=>{
       gasPrice = gp
@@ -113,7 +114,7 @@ function getAddressStaked(key){
     })
     .then((data)=>{
       var obj = JSON.parse(data);
-      abi = obj.abi
+      var abi = obj.abi
       Contract = new web3.eth.Contract(abi,GNXAddr);
     })   
     .then(()=>{
@@ -126,7 +127,7 @@ function getAddressStaked(key){
           // var _str = '0x'+hex8(genaroshare_stake.option)+genaroshare_stake.nodeID;
           var _str = hex8(genaroshare_stake.option)+genaroshare_stake.nodeID;          
           var _buffer = toUTF8Array(_str)         
-          _newstr = web3.utils.bytesToHex(_buffer)
+          var _newstr = web3.utils.bytesToHex(_buffer)
           web3.eth.getTransactionCount(key.address)
           .then((nb)=>{nonceval=nb})
           .then(()=>{
