@@ -115,5 +115,5 @@
     "test": "npm run testsuite && npm run linter",
     "testsuite": "STORJ_ALLOW_LOOPBACK=1 ./node_modules/.bin/mocha test/** --recursive"
   },
-  "version": "1.0.8"
+  "version": "1.0.13"
 }
