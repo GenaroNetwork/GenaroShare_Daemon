@@ -1,28 +1,6 @@
 {
-  "_from": "genaroshare-daemon",
-  "_id": "genaroshare-daemon@1.0.8",
-  "_inBundle": false,
-  "_integrity": "sha512-NdFYX0pyJ8xuLeQdGogMQx0JlSyc/RCcoSrKl1r46J8MX51dt80p6gIYo2vEkKaXg54jxpE4WnGsVM5GautVVg==",
-  "_location": "/genaroshare-daemon",
-  "_phantomChildren": {},
-  "_requested": {
-    "type": "tag",
-    "registry": true,
-    "raw": "genaroshare-daemon",
-    "name": "genaroshare-daemon",
-    "escapedName": "genaroshare-daemon",
-    "rawSpec": "",
-    "saveSpec": null,
-    "fetchSpec": "latest"
-  },
-  "_requiredBy": [
-    "#USER",
-    "/"
-  ],
-  "_resolved": "https://registry.npmjs.org/genaroshare-daemon/-/genaroshare-daemon-1.0.8.tgz",
-  "_shasum": "85895fcc3191af21366ab0f5729f229e78735fac",
-  "_spec": "genaroshare-daemon",
-  "_where": "/Users/weilongwu",
+  "name": "genaroshare-daemon",
+  "version": "1.0.15",
   "author": {
     "name": "Alexander Leitner",
     "email": "alex@storj.io"
@@ -107,13 +85,11 @@
   ],
   "license": "AGPL-3.0",
   "main": "index.js",
-  "name": "genaroshare-daemon",
   "preferGlobal": true,
   "scripts": {
     "coverage": "STORJ_ALLOW_LOOPBACK=1 ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --recursive",
     "linter": "jshint --config .jshintrc ./index.js ./lib ./test ./bin",
     "test": "npm run testsuite && npm run linter",
     "testsuite": "STORJ_ALLOW_LOOPBACK=1 ./node_modules/.bin/mocha test/** --recursive"
-  },
-  "version": "1.0.13"
+  }
 }
