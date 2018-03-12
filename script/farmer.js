@@ -2,6 +2,7 @@
 
 'use strict';
 
+require('../bin/globalsetting')
 const utils = require('../lib/utils');
 const storj = require('storj-lib');
 const Logger = require('kad-logger-json');
