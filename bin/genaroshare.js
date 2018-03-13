@@ -2,8 +2,6 @@
 
 'use strict';
 
-require('./globalsetting');
-
 const genaroshare = require('commander');
 const {version, bin} = require('../package');
 process.env.STORJ_NETWORK = 'gtest';
@@ -11,7 +9,6 @@ const {software: core, protocol} = require('storj-lib').version;
 
 console.log(core);
 console.log(protocol);
-
 function checkIfValidSubcommand() {
   if (process.argv.length > 2) {
     for (var prop in bin) {
@@ -38,6 +35,7 @@ genaroshare
   .command('destroy', 'kills the farming node')
   .command('killall', 'kills all nodes and stops the daemon')
   .command('daemon', 'starts the daemon')
+  .command('withdraw','withdraw the token or eth from wallet')
   .parse(process.argv);
 
 if (!checkIfValidSubcommand()) { 

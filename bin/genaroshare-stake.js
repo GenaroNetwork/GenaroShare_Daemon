@@ -22,8 +22,8 @@ const {homedir} = require('os');
 const KEYSTORE_DIRECTORY = path.resolve(__dirname, '../keystore');
 const CONTRACT_DIRECTORY = path.resolve(__dirname, '../contract');
 
-var GNXAddr = "0x1F84118c3B0f3f97c63B8e125456d76C78baBed5"
-var EmuAddr = "0xd0c419feC9541d23176A48648d3473d7E5185f70"
+var GNXAddr = "0x9e22797c8f5E8148d010DD9Bbb8f47a0Def069A4"
+var EmuAddr = "0x4BAC64d1aA7a3167eB225FFB2B1c9C049e027Cfc"
 
 genaroshare_stake
   .description('starts stake to share the storage')
@@ -132,7 +132,7 @@ function getAddressStaked(key){
           .then((nb)=>{nonceval=nb})
           .then(()=>{
   
-          var txOptions = {
+            txOptions = {
                    gasPrice:  web3.utils.toHex(parseInt(gasPrice)),
                    gasLimit:  web3.utils.toHex(470000),
                    value:  0,

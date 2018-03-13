@@ -18,6 +18,8 @@ const utils = require('../lib/utils');
 const touch = require('touch');
 const KEYSTORE_DIRECTORY = path.resolve(__dirname, '../keystore');
 
+var keys = JSON.parse(fs.readFileSync(path.join(KEYSTORE_DIRECTORY,'/keys.json')));
+
 const defaultConfig = JSON.parse(stripJsonComments(fs.readFileSync(
   path.join(__dirname, '../example/farmer.config.json')
 ).toString()));
@@ -29,6 +31,8 @@ var jsonfile = Promise.promisifyAll(require('jsonfile'));
 var keystore = require('eth-lightwallet').keystore;
 var afs = Promise.promisifyAll(require("fs"));
 var paymentAddress;
+
+var prompt = require('prompt');
 
 function whichEditor() {
 
@@ -67,26 +71,22 @@ function whichEditor() {
         if (error) { reject(error); }
         ks.generateNewAddress(dKey, 1);
         var address = `${ks.getAddresses()[0]}`;        
-        var privateKey = ks.exportPrivateKey(address, dKey);
         var keystore = JSON.parse(ks.serialize());
-        resolve({ address, privateKey, keystore });
+        resolve({address, keystore})
       });
     });
   });
 }
 
-function saveProfile(name, keystore, privateKey, address) {
+function saveProfile(name, keystore, address) {
   return new Promise((resolve, reject) => {
     jsonfile.readFileAsync(`${KEYSTORE_DIRECTORY}/keys.json`, {throws: false})
     .then(function(PROFILES) {
       var profiles = PROFILES || {};
       profiles[`${name}`] = {
         keystore,
-        privateKey,
         address
       };
-      console.log('stored new account :', name);
-      // console.log('profiles', profiles)
       return profiles;
     })
     .then(function(_profiles) {
@@ -102,7 +102,7 @@ function saveProfile(name, keystore, privateKey, address) {
         createKeystore(password)
         .then(function(ks) {
           paymentAddress = ks.address;
-          return saveProfile(name, ks.keystore, ks.privateKey, ks.address); })
+          return saveProfile(name, ks.keystore, ks.address); })
         .then(function(saved) { console.log('saved', saved); })
         .catch(function(error) { console.log(error); }); 
   }
@@ -110,7 +110,6 @@ function saveProfile(name, keystore, privateKey, address) {
 genaroshare_create
   .description('generates a new node configuration')
   .option('--name <name>', 'specify the account name(required)')
-  .option('--password <password>', 'specify the account password(required)')
   .option('--key <privkey>', 'specify the private key')
   .option('--storage <path>', 'specify the storage path')
   .option('--size <maxsize>', 'specify node size (ex: 10GB, 1TB)')
@@ -171,11 +170,37 @@ function replaceDefaultConfigValue(prop, value) {
 
 var FILE;
 
+if(!genaroshare_create.name){
+  console.error("\n the name should be point out ");
+  process.exit(1);
+}else{
+
+  var count = 1;
+  var account;
+  for(var key in keys){
+      if(key==genaroshare_create.name){
+         console.error("\n your name is duplicated, please change new one.");
+         process.exit(1);
+      }
+  
+      if(count==Object.keys(keys).length && !account){
+          console.log('\n your account name is unique: ',genaroshare_create.name );
+      }
+      count +=1;
+  }
+}
+
+
+prompt.start();
+var Password;
+prompt.get(['password'], function (err, result) {
+   Password = result.password;
+
 new Promise((resolve,reject)=>{
-    createKeystore(genaroshare_create.password)
+    createKeystore(Password)
     .then(function(ks) {
       paymentAddress = ks.address;
-      return saveProfile(genaroshare_create.name, ks.keystore, ks.privateKey, ks.address); })    
+      return saveProfile(genaroshare_create.name, ks.keystore, ks.address); })    
     .then(()=>{
 
       if(!genaroshare_create.name){
@@ -183,10 +208,10 @@ new Promise((resolve,reject)=>{
         process.exit(1);
       }
       
-      if(!genaroshare_create.password){
-        console.error('\n you need to give this account a password');
-        process.exit(1);
-      }
+      // if(!genaroshare_create.password){
+      //   console.error('\n you need to give this account a password');
+      //   process.exit(1);
+      // }
       
       
       if (!genaroshare_create.key) {
@@ -279,3 +304,5 @@ new Promise((resolve,reject)=>{
     })   
   
 })
+
+});
