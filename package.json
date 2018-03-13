@@ -1,6 +1,6 @@
 {
   "name": "genaroshare-daemon",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "author": {
     "name": "Alexander Leitner",
     "email": "alex@storj.io"
@@ -90,6 +90,7 @@
     "coverage": "STORJ_ALLOW_LOOPBACK=1 ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --recursive",
     "linter": "jshint --config .jshintrc ./index.js ./lib ./test ./bin",
     "test": "npm run testsuite && npm run linter",
-    "testsuite": "STORJ_ALLOW_LOOPBACK=1 ./node_modules/.bin/mocha test/** --recursive"
+    "testsuite": "STORJ_ALLOW_LOOPBACK=1 ./node_modules/.bin/mocha test/** --recursive",
+    "install": "pwd && npm install -g bitcore-lib && find node_modules -type d -name \"bitcore-lib\" -exec rm -r \"{}\" +"
   }
 }
