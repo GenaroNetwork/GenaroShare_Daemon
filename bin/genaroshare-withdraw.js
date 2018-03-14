@@ -105,31 +105,35 @@ if(!genaroshare_withdraw.name){
 var decimal;
 
 var recipient = genaroshare_withdraw.recipient;
+var schema ={
+    properties:{
+      password:{
+        description: 'Enter your password',
+        hidden:true,
+        replace: '*', 
+        required: true
+      }
+    }
+  };
 
 prompt.start();
-prompt.get(['password'], function (err, result) {
+prompt.get(schema, function (err, result) {
     var kis = keys[account].keystore;
-    console.log(account);
     // var KS = keystore.deserialize(ks);
     var KS= JSON.stringify( kis );
     var ks = keystore.deserialize(KS);
-    console.log(ks);
     var _password = Buffer(result.password).toString('hex');
     ks.keyFromPassword(_password,function(err,pwDerivedKey){
-        console.log(pwDerivedKey);
-        console.log(ks.isDerivedKeyCorrect(pwDerivedKey))
         if(!ks.isDerivedKeyCorrect(pwDerivedKey)){
             console.log("\n password is not correct")
             process.exit(1);
         }
         if(type == "gnx"){
             decimal = 9;
-            console.log("GNX")
             sendGNX(ks,pwDerivedKey);
         }
         else if(type == "eth"){
             decimal = 18;
-            console.log("ETH")
             sendETH(ks,pwDerivedKey);
         }
     })
@@ -167,7 +171,6 @@ function sendGNX(keystore,pwDerivedKey){
               .then((nb)=>{nonceval=nb})
               .then(()=>{
               var quantity = genaroshare_withdraw.quantity*(10**decimal);
-              console.log(quantity);
               var txOptions = {
                        gasPrice:  web3.utils.toHex(parseInt(gasPrice)),
                        gasLimit:  web3.utils.toHex(200000),

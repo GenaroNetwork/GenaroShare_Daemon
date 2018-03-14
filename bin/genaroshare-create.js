@@ -18,12 +18,6 @@ const utils = require('../lib/utils');
 const touch = require('touch');
 const KEYSTORE_DIRECTORY = path.resolve(__dirname, '../keystore');
 
-var keys = JSON.parse(fs.readFileSync(path.join(KEYSTORE_DIRECTORY,'/keys.json')));
-
-const defaultConfig = JSON.parse(stripJsonComments(fs.readFileSync(
-  path.join(__dirname, '../example/farmer.config.json')
-).toString()));
-
 const bip39 = require('bip39');
 
 var Promise = require('bluebird').Promise;
@@ -33,6 +27,15 @@ var afs = Promise.promisifyAll(require("fs"));
 var paymentAddress;
 
 var prompt = require('prompt');
+
+
+console.log(path.join(KEYSTORE_DIRECTORY,'/keys.json'));
+var keys = JSON.parse(fs.readFileSync(path.join(KEYSTORE_DIRECTORY,'/keys.json')));
+
+const defaultConfig = JSON.parse(stripJsonComments(fs.readFileSync(
+  path.join(__dirname, '../example/farmer.config.json')
+).toString()));
+
 
 function whichEditor() {
 
@@ -176,24 +179,35 @@ if(!genaroshare_create.name){
 }else{
 
   var count = 1;
-  var account;
-  for(var key in keys){
-      if(key==genaroshare_create.name){
-         console.error("\n your name is duplicated, please change new one.");
-         process.exit(1);
-      }
-  
-      if(count==Object.keys(keys).length && !account){
-          console.log('\n your account name is unique: ',genaroshare_create.name );
-      }
-      count +=1;
-  }
+
+      for(var key in keys){
+        if(key==genaroshare_create.name){
+          console.error("\n your name is duplicated, please change new one.");
+          process.exit(1);
+        }
+    
+        if(count==Object.keys(keys).length){
+            console.log('\n your account name is unique: ',genaroshare_create.name );
+        }
+        count +=1;
+    }
 }
 
 
 prompt.start();
 var Password;
-prompt.get(['password'], function (err, result) {
+var schema ={
+  properties:{
+    password:{
+      description: 'Enter your password',
+      hidden:true,
+      replace: '*', 
+      required: true
+    }
+  }
+};
+
+prompt.get(schema, function (err, result) {
    Password = result.password;
 
 new Promise((resolve,reject)=>{
