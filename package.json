@@ -1,6 +1,6 @@
 {
   "name": "genaroshare-daemon",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "author": {
     "name": "Alexander Leitner",
     "email": "alex@storj.io"
@@ -63,7 +63,7 @@
     "strip-json-comments": "^2.0.1",
     "tail": "^1.2.3",
     "touch": "3.1.0",
-    "web3": "^1.0.0-beta.30",
+    "web3": "1.0.0-beta.30",
     "web3-utils": "^1.0.0-beta"
   },
   "deprecated": false,
