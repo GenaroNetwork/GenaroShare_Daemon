@@ -2,9 +2,9 @@
 
 'use strict';
 
+require('./globalsetting');
 const genaroshare = require('commander');
 const {version, bin} = require('../package');
-process.env.STORJ_NETWORK = 'gtest';
 const {software: core, protocol} = require('storj-lib').version;
 
 console.log(core);
