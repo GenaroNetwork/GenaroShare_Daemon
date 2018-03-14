@@ -33,12 +33,57 @@ genaroshare_stake
   .parse(process.argv);
 
 
+  // start to do the input check 
+var KeyPath = path.join(homedir(),'.config/genaroshare/keystore/keys.json');
+
+if(!fs.existsSync(KeyPath)){
+    console.error('\n .Json is not found, you need to do genaroshare-create first, try --help');
+    process.exit(1);
+  }else{
+    var keys = JSON.parse(fs.readFileSync(path.join(homedir(),'.config/genaroshare/keystore/keys.json')));
+  }
+  
+if(!genaroshare_stake.nodeID){
+  console.error('\n need to input your nodeid to continue, try -- help');
+  process.exit(1);
+}
+
+if(!genaroshare_stake.quantity){
+  console.error('\n  no quantity was set, try --help');
+  process.exit(1);
+}
+else if(genaroshare_stake.quantity < minValue){
+  console.error('\n  not reach the limit of stake, should stake at least 5000GNX');
+  process.exit(1);
+}
+
+if(!genaroshare_stake.option){
+  console.error('\n  no option was set, try --help');
+  process.exit(1);
+}
+else{
+  if(!checkRate(genaroshare_stake.option)){
+    console.error('\n please input integers as option');
+    process.exit(1);
+  }
+}
+
+for(var key in keys){
+  if(keys[key].address == getConfigValue('paymentAddress').value){
+     console.log(key);
+    
+     //start the staking 
+     
+     getAddressStaked(keys[key]);
+  }
+}
+
+
 // first load the striped JSON and the full JSON file
 const config = JSON.parse(stripJsonComments(fs.readFileSync(
   path.join(homedir(), '.config/genaroshare/configs/'+genaroshare_stake.nodeID+'.json')
 ).toString()));
 
-var keys = JSON.parse(fs.readFileSync(path.join(KEYSTORE_DIRECTORY,'/keys.json')));
 
 var minValue = 5000;
 
@@ -165,44 +210,7 @@ function getAddressStaked(key){
       }
     }
 
-    
-// start to do the input check 
-
-if(!genaroshare_stake.nodeID){
-  console.error('\n need to input your nodeid to continue, try -- help');
-  process.exit(1);
-}
-
-if(!genaroshare_stake.quantity){
-  console.error('\n  no quantity was set, try --help');
-  process.exit(1);
-}
-else if(genaroshare_stake.quantity < minValue){
-  console.error('\n  not reach the limit of stake, should stake at least 5000GNX');
-  process.exit(1);
-}
-
-if(!genaroshare_stake.option){
-  console.error('\n  no option was set, try --help');
-  process.exit(1);
-}
-else{
-  if(!checkRate(genaroshare_stake.option)){
-    console.error('\n please input integers as option');
-    process.exit(1);
-  }
-}
-
-for(var key in keys){
-  if(keys[key].address == getConfigValue('paymentAddress').value){
-     console.log(key);
-    
-     //start the staking 
-     
-     getAddressStaked(keys[key]);
-  }
-}
-
+  
 
 
 

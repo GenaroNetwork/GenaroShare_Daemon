@@ -45,7 +45,16 @@ genaroshare_withdraw
   .option('--recipient <address>', 'set the recipient of the transaction in address')
   .parse(process.argv);
 
-var keys = JSON.parse(fs.readFileSync(path.join(KEYSTORE_DIRECTORY,'/keys.json')));
+
+var KeyPath = path.join(homedir(),'.config/genaroshare/keystore/keys.json');
+
+if(!fs.existsSync(KeyPath)){
+    console.error('\n .Json is not found, you need to do genaroshare-create first, try --help');
+    process.exit(1);
+  }else{
+    var keys = JSON.parse(fs.readFileSync(path.join(homedir(),'.config/genaroshare/keystore/keys.json')));
+  }
+
 
 if(!genaroshare_withdraw.type){
     console.error("\n the type need to be noted as GNX or ETH");
