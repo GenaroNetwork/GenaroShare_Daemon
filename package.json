@@ -1,6 +1,6 @@
 {
   "name": "genaroshare-daemon",
-  "version": "1.1.5",
+  "version": "1.1.7",
   "author": {
     "name": "Alexander Leitner",
     "email": "alex@storj.io"
@@ -51,6 +51,8 @@
     "editor": "^1.0.0",
     "eth-lightwallet": "^3.0.1",
     "fslogger": "^2.0.2",
+    "is-number": "^5.0.0",
+    "jsonfile": "^4.0.0",
     "kad-logger-json": "^0.1.2",
     "mkdirp": "^0.5.1",
     "pretty-ms": "^3.0.1",
