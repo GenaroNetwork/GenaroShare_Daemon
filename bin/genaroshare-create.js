@@ -16,7 +16,6 @@ const genaroshare_create = require('commander');
 const {execSync} = require('child_process');
 const utils = require('../lib/utils');
 const touch = require('touch');
-const KEYSTORE_DIRECTORY = path.resolve(__dirname, '../keystore');
 
 const bip39 = require('bip39');
 
@@ -28,8 +27,6 @@ var paymentAddress;
 
 var prompt = require('prompt');
 
-
-console.log(path.join(KEYSTORE_DIRECTORY,'/keys.json'));
 
 function createFile(filename) {
   fs.writeFile(filename, '{}', function(err) {
@@ -198,7 +195,10 @@ function replaceDefaultConfigValue(prop, value) {
 
 
 var FILE;
-
+if(genaroshare_create.args.length ===0){
+  console.error("\n please read --help for start genaro-create");
+  process.exit(1);
+}
 if(!genaroshare_create.name){
   console.error("\n the name should be point out ");
   process.exit(1);
