@@ -48,7 +48,12 @@ if(!fs.existsSync(KeyPath)){
   }else{
     var keys = JSON.parse(fs.readFileSync(path.join(homedir(),'.config/genaroshare/keystore/keys.json')));
   }
-  
+
+if(process.argv.length <=2){
+  console.error("\n please read --help for start genaroshare-stake");
+  process.exit(1);
+}
+
 if(!genaroshare_stake.nodeID){
   console.error('\n need to input your nodeid to continue, try -- help');
   process.exit(1);

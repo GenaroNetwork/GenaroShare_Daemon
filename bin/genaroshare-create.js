@@ -195,10 +195,17 @@ function replaceDefaultConfigValue(prop, value) {
 
 
 var FILE;
-if(genaroshare_create.args.length ===0){
-  console.error("\n please read --help for start genaro-create");
+
+if(process.argv.length <=2){
+  console.error("\n please read --help for start genaroshare-create");
   process.exit(1);
+}else{
+  if(process.argv[2]!="--name"){
+    console.error("\n the --name option should be the first input");
+    process.exit(1);
+  }
 }
+
 if(!genaroshare_create.name){
   console.error("\n the name should be point out ");
   process.exit(1);

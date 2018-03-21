@@ -56,6 +56,10 @@ if(!fs.existsSync(KeyPath)){
   }
 
 
+if(process.argv.length <=2){
+    console.error("\n please read --help for start genaroshare-withdraw");
+    process.exit(1);
+}
 if(!genaroshare_withdraw.type){
     console.error("\n the type need to be noted as GNX or ETH");
     process.exit(1);
