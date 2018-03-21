@@ -16,7 +16,6 @@ const genaroshare_create = require('commander');
 const {execSync} = require('child_process');
 const utils = require('../lib/utils');
 const touch = require('touch');
-const KEYSTORE_DIRECTORY = path.resolve(__dirname, '../keystore');
 
 const bip39 = require('bip39');
 
@@ -29,8 +28,32 @@ var paymentAddress;
 var prompt = require('prompt');
 
 
-console.log(path.join(KEYSTORE_DIRECTORY,'/keys.json'));
-var keys = JSON.parse(fs.readFileSync(path.join(KEYSTORE_DIRECTORY,'/keys.json')));
+function createFile(filename) {
+  fs.writeFile(filename, '{}', function(err) {
+      if(err) {
+          console.log(err);
+      }
+      console.log("Json file was saved!");
+  });
+} 
+
+var KeyPath = path.join(homedir(),'.config/genaroshare/keystore/keys.json');
+
+if(!fs.existsSync(KeyPath)){
+      fs.mkdir(path.join(homedir(),'.config/genaroshare/keystore'),function(e){
+        if(!e || (e && e.code === 'EEXIST')){
+          fs.writeFileSync(KeyPath,'{}');
+          var keys = JSON.parse(fs.readFileSync(KeyPath));          
+        }else{
+          console.log(e);
+        }
+      })
+      
+  }else{
+    var keys = JSON.parse(fs.readFileSync(KeyPath));   
+  }
+
+
 
 const defaultConfig = JSON.parse(stripJsonComments(fs.readFileSync(
   path.join(__dirname, '../example/farmer.config.json')
@@ -83,7 +106,7 @@ function whichEditor() {
 
 function saveProfile(name, keystore, address) {
   return new Promise((resolve, reject) => {
-    jsonfile.readFileAsync(`${KEYSTORE_DIRECTORY}/keys.json`, {throws: false})
+    jsonfile.readFileAsync(KeyPath, {throws: false})
     .then(function(PROFILES) {
       var profiles = PROFILES || {};
       profiles[`${name}`] = {
@@ -93,7 +116,7 @@ function saveProfile(name, keystore, address) {
       return profiles;
     })
     .then(function(_profiles) {
-      return jsonfile.writeFileAsync(`${KEYSTORE_DIRECTORY}/keys.json`, _profiles, {spaces: 2});
+      return jsonfile.writeFileAsync(KeyPath, _profiles, {spaces: 2});
     })
     .then(function() { resolve(true); })
     .catch(function(error) { reject(error); });
@@ -172,7 +195,10 @@ function replaceDefaultConfigValue(prop, value) {
 
 
 var FILE;
-
+if(genaroshare_create.args.length ===0){
+  console.error("\n please read --help for start genaro-create");
+  process.exit(1);
+}
 if(!genaroshare_create.name){
   console.error("\n the name should be point out ");
   process.exit(1);

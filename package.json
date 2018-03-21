@@ -1,6 +1,6 @@
 {
   "name": "genaroshare-daemon",
-  "version": "1.1.3",
+  "version": "1.1.10",
   "author": {
     "name": "Alexander Leitner",
     "email": "alex@storj.io"
@@ -53,6 +53,8 @@
     "eth-lightwallet": "^3.0.1",
     "ethereum-keyfile-recognizer": "^1.0.2",
     "fslogger": "^2.0.2",
+    "is-number": "^5.0.0",
+    "jsonfile": "^4.0.0",
     "kad-logger-json": "^0.1.2",
     "mkdirp": "^0.5.1",
     "pretty-ms": "^3.0.1",
@@ -63,7 +65,7 @@
     "strip-json-comments": "^2.0.1",
     "tail": "^1.2.3",
     "touch": "3.1.0",
-    "web3": "^1.0.0-beta.30",
+    "web3": "1.0.0-beta.30",
     "web3-utils": "^1.0.0-beta"
   },
   "deprecated": false,

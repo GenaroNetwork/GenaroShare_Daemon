@@ -21,9 +21,15 @@ const {homedir} = require('os');
 
 const KEYSTORE_DIRECTORY = path.resolve(__dirname, '../keystore');
 const CONTRACT_DIRECTORY = path.resolve(__dirname, '../contract');
+var keystore = require('eth-lightwallet').keystore;
+var txutils = require('eth-lightwallet').txutils;
+var signing = require('eth-lightwallet').signing;
 
-var GNXAddr = "0x9e22797c8f5E8148d010DD9Bbb8f47a0Def069A4"
-var EmuAddr = "0x4BAC64d1aA7a3167eB225FFB2B1c9C049e027Cfc"
+var GNXAddr = "0x1F84118c3B0f3f97c63B8e125456d76C78baBed5"
+var EmuAddr = "0xd0c419feC9541d23176A48648d3473d7E5185f70"
+var prompt = require('prompt');
+
+var abi;
 
 genaroshare_stake
   .description('starts stake to share the storage')
@@ -33,12 +39,97 @@ genaroshare_stake
   .parse(process.argv);
 
 
+  // start to do the input check 
+var KeyPath = path.join(homedir(),'.config/genaroshare/keystore/keys.json');
+
+if(!fs.existsSync(KeyPath)){
+    console.error('\n .Json is not found, you need to do genaroshare-create first, try --help');
+    process.exit(1);
+  }else{
+    var keys = JSON.parse(fs.readFileSync(path.join(homedir(),'.config/genaroshare/keystore/keys.json')));
+  }
+  
+if(!genaroshare_stake.nodeID){
+  console.error('\n need to input your nodeid to continue, try -- help');
+  process.exit(1);
+}
+
+if(!genaroshare_stake.quantity){
+  console.error('\n  no quantity was set, try --help');
+  process.exit(1);
+}
+else if(genaroshare_stake.quantity < minValue){
+  console.error('\n  not reach the limit of stake, should stake at least 5000GNX');
+  process.exit(1);
+}
+
+if(!genaroshare_stake.option){
+  console.error('\n  no option was set, try --help');
+  process.exit(1);
+}
+else{
+  if(!checkRate(genaroshare_stake.option)){
+    console.error('\n please input integers as option');
+    process.exit(1);
+  }
+}
+
 // first load the striped JSON and the full JSON file
 const config = JSON.parse(stripJsonComments(fs.readFileSync(
   path.join(homedir(), '.config/genaroshare/configs/'+genaroshare_stake.nodeID+'.json')
 ).toString()));
+// for(var key in keys){
+//   if(keys[key].address == getConfigValue('paymentAddress').value){
+//      console.log(key);
+    
+//      //start the staking 
+     
+//      getAddressStaked(keys[key]);
+//   }
+// }
 
-var keys = JSON.parse(fs.readFileSync(path.join(KEYSTORE_DIRECTORY,'/keys.json')));
+var count = 1;
+var account;
+for(var key in keys){
+    if(keys[key].address==getConfigValue('paymentAddress').value){
+        account=key;
+    }
+    if(count==Object.keys(keys).length && !account){
+        console.error('\n the account is not found in client, try --help');
+        process.exit(1);
+    }
+    count +=1;
+}
+
+var schema ={
+  properties:{
+    password:{
+      description: 'Enter your password',
+      hidden:true,
+      replace: '*', 
+      required: true
+    }
+  }
+};
+
+
+prompt.start();
+prompt.get(schema, function (err, result) {
+    var kis = keys[account].keystore;
+    // var KS = keystore.deserialize(ks);
+    var KS= JSON.stringify( kis );
+    var ks = keystore.deserialize(KS);
+    var _password = Buffer(result.password).toString('hex');
+    ks.keyFromPassword(_password,function(err,pwDerivedKey){
+        if(!ks.isDerivedKeyCorrect(pwDerivedKey)){
+            console.log("\n password is not correct")
+            process.exit(1);
+        }
+        getAddressStaked(ks,pwDerivedKey);
+    })
+})
+
+
 
 var minValue = 5000;
 
@@ -98,7 +189,7 @@ function toUTF8Array(str) {
   return utf8;
 }
 
-function getAddressStaked(key){
+function getAddressStaked(keystore,pwDerivedKey){
   var gasPrice, Contract;  
   if (typeof web3 !== 'undefined') {
     var web3 = new Web3(web3.currentProvider);
@@ -114,7 +205,7 @@ function getAddressStaked(key){
     })
     .then((data)=>{
       var obj = JSON.parse(data);
-      var abi = obj.abi
+      abi = obj.abi
       Contract = new web3.eth.Contract(abi,GNXAddr);
     })   
     .then(()=>{
@@ -128,16 +219,16 @@ function getAddressStaked(key){
           var _str = hex8(genaroshare_stake.option)+genaroshare_stake.nodeID;          
           var _buffer = toUTF8Array(_str)         
           var _newstr = web3.utils.bytesToHex(_buffer)
-          web3.eth.getTransactionCount(key.address)
+          web3.eth.getTransactionCount(keys[account].address)
           .then((nb)=>{nonceval=nb})
           .then(()=>{
   
-            txOptions = {
+          var txOptions = {
                    gasPrice:  web3.utils.toHex(parseInt(gasPrice)),
                    gasLimit:  web3.utils.toHex(470000),
                    value:  0,
                    nonce:  web3.utils.toHex(nonceval),
-                   from : key.address,
+                   from : keys[account].address,
                    to : GNXAddr,
                    data: Contract.methods.approveAndCall(EmuAddr,genaroshare_stake.quantity*10**9,_newstr).encodeABI(),
                    chainId:3 //ropsten
@@ -145,18 +236,16 @@ function getAddressStaked(key){
                }
   
             // key should be the one from genaro stake stakebase
-            var privateKey = Buffer.from(key.privateKey,'hex')
-            var tx = new Tx(txOptions);
-            tx.sign(privateKey);
-            var serializedTx = tx.serialize();
-  
-            console.log('');
-            console.log(serializedTx.toString('hex'));
-  
-            web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex'), (err, hash) => {
+            var transferTx = txutils.functionTx(abi, 'approveAndCall', [EmuAddr,genaroshare_stake.quantity*10**9,_newstr], txOptions)
+            var signedValueTx = signing.signTx(keystore, pwDerivedKey, transferTx, keys[account].address)
+
+            console.log(signedValueTx);
+
+            web3.eth.sendSignedTransaction('0x' + signedValueTx.toString('hex'), (err, hash) => {
                 if (err) { console.log(err); return; }
-  
-                console.log('stake tx hash: ' + hash);
+    
+                // Log the tx, you can explore status manually with eth.getTransaction()
+                console.log('tx hash: ' + hash);
             });
   
           })
@@ -165,44 +254,7 @@ function getAddressStaked(key){
       }
     }
 
-    
-// start to do the input check 
-
-if(!genaroshare_stake.nodeID){
-  console.error('\n need to input your nodeid to continue, try -- help');
-  process.exit(1);
-}
-
-if(!genaroshare_stake.quantity){
-  console.error('\n  no quantity was set, try --help');
-  process.exit(1);
-}
-else if(genaroshare_stake.quantity < minValue){
-  console.error('\n  not reach the limit of stake, should stake at least 5000GNX');
-  process.exit(1);
-}
-
-if(!genaroshare_stake.option){
-  console.error('\n  no option was set, try --help');
-  process.exit(1);
-}
-else{
-  if(!checkRate(genaroshare_stake.option)){
-    console.error('\n please input integers as option');
-    process.exit(1);
-  }
-}
-
-for(var key in keys){
-  if(keys[key].address == getConfigValue('paymentAddress').value){
-     console.log(key);
-    
-     //start the staking 
-     
-     getAddressStaked(keys[key]);
-  }
-}
-
+  
 
 
 
