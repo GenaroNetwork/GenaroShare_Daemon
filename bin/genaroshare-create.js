@@ -4,6 +4,7 @@
 
 require('./globalsetting');
 
+const config = require('../lib/config/daemon');
 const blindfold = require('blindfold');
 const editor = require('editor');
 const {homedir} = require('os');
