@@ -36,6 +36,8 @@ genaroshare
   .command('killall', 'kills all nodes and stops the daemon')
   .command('daemon', 'starts the daemon')
   .command('withdraw','withdraw the token or eth from wallet')
+  .command('checkreward', 'check current stake and reward')
+  .command('getreward', 'get reward to wallet')
   .parse(process.argv);
 
 if (!checkIfValidSubcommand()) { 
