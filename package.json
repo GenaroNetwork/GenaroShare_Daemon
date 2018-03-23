@@ -1,6 +1,6 @@
 {
   "name": "genaroshare-daemon",
-  "version": "1.1.10",
+  "version": "1.2.0",
   "author": {
     "name": "Alexander Leitner",
     "email": "alex@storj.io"
@@ -18,7 +18,9 @@
     "genaroshare-killall": "bin/genaroshare-killall.js",
     "genaroshare-destroy": "bin/genaroshare-destroy.js",
     "genaroshare-daemon": "bin/genaroshare-daemon.js",
-    "genaroshare-create": "bin/genaroshare-create.js"
+    "genaroshare-create": "bin/genaroshare-create.js",
+    "genaroshare-checkreward": "bin/genaroshare-checkreward.js",
+    "genaroshare-getreward": "bin/genaroshare-getreward.js"
   },
   "bundleDependencies": false,
   "contributors": [
