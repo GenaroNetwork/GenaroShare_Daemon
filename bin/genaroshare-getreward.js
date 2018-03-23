@@ -49,7 +49,6 @@ utils.connectToDaemon(port, function(rpc, sock) {
         console.info('transfer cancelled')
         return sock.end();
       }
-      console.log('ppp')
       rpc.getReward(genaroshare_getreward.nodeid, (err, result) => {
         if (err) {
           console.error(`\n  error checking reward, reason: ${err.message}`);
