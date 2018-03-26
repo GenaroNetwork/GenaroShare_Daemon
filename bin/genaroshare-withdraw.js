@@ -30,12 +30,12 @@ var txutils = require('eth-lightwallet').txutils;
 var signing = require('eth-lightwallet').signing;
 
 if(process.env.STORJ_NETWORK = "genaro"){
-    var chain = 3;
+    var chain = 0;
 }else if(process.env.STORJ_NETWORK = "gtest"){
-    var chain =0;
+    var chain = 3;
 }
 
-var GNXAddr = "0x9e22797c8f5E8148d010DD9Bbb8f47a0Def069A4"
+var GNXAddr = "0x1F84118c3B0f3f97c63B8e125456d76C78baBed5"
 
 genaroshare_withdraw
   .description('withdraw GNX or ETH from the pre-set wallet')
