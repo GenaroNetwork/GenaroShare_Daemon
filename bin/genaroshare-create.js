@@ -91,6 +91,8 @@ function whichEditor() {
  function createKeystore(_password) {
   return new Promise(function(resolve, reject) {
     const seed = bip39.generateMnemonic();
+    console.log('THIS IS YOUR MNEMONIC, PLEASE WRITE DOWN. NO ONE CAN HELP IF YOU LOST YOUR WALLET!')
+    console.log(seed)
     var password = Buffer(_password).toString('hex');
     keystore.createVault({ password: password ,seedPhrase: seed,hdPathString: "m/44'/60'/0'/0'"}, function(error, ks) {
       if (error) { reject(error); }
