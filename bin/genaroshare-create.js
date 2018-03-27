@@ -91,16 +91,22 @@ function whichEditor() {
  function createKeystore(_password) {
   return new Promise(function(resolve, reject) {
     const seed = bip39.generateMnemonic();
-    console.log('THIS IS YOUR MNEMONIC, PLEASE WRITE DOWN. NO ONE CAN HELP IF YOU LOST YOUR WALLET!')
+    console.log('THIS IS YOUR MNEMONIC, PLEASE WRITE DOWN. THIS WILL ONLY SHOW ONCE:')
     console.log(seed)
+    console.log('\nyou can import this mnemonic into other wallet software which supports BIP39')
     var password = Buffer(_password).toString('hex');
-    keystore.createVault({ password: password ,seedPhrase: seed,hdPathString: "m/44'/60'/0'/0'"}, function(error, ks) {
+    keystore.createVault({ password: password ,seedPhrase: seed,hdPathString: "m/44'/60'/0'/0"}, function(error, ks) {
       if (error) { reject(error); }
       ks.keyFromPassword(password, function(error, dKey) {
         if (error) { reject(error); }
         ks.generateNewAddress(dKey, 1);
         var address = `${ks.getAddresses()[0]}`;        
         var keystore = JSON.parse(ks.serialize());
+        let pk = ks.exportPrivateKey(address, dKey)
+        console.log('\nTHIS IS YOUR WALLET ADDR AND PRIVATE KEY, PLEASE WRITE DOWN. THIS WILL ONLY SHOW ONCE!')
+        console.log('wallet address: ' + address)
+        console.log('private key: 0x' + pk)
+        console.log('\nyou can import this key into other wallet software')
         resolve({address, keystore})
       });
     });
