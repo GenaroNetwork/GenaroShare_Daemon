@@ -29,13 +29,17 @@ var keystore = require('eth-lightwallet').keystore;
 var txutils = require('eth-lightwallet').txutils;
 var signing = require('eth-lightwallet').signing;
 
-if(process.env.STORJ_NETWORK = "genaro"){
-    var chain = 0;
-}else if(process.env.STORJ_NETWORK = "gtest"){
-    var chain = 3;
+let chain, GNXAddr, web3Provider
+if(process.env.STORJ_NETWORK === "gtest"){
+    chain = 3;
+    GNXAddr = "0x1F84118c3B0f3f97c63B8e125456d76C78baBed5"
+    web3Provider = 'https://ropsten.infura.io/CPKlwMsRTFVy6idI23Yb'
+} else {
+    chain = 0;
+    GNXAddr = "0x6ec8a24cabdc339a06a172f8223ea557055adaa5"
+    web3Provider = 'https://mainnet.infura.io/CPKlwMsRTFVy6idI23Yb';
 }
 
-var GNXAddr = "0x1F84118c3B0f3f97c63B8e125456d76C78baBed5"
 
 genaroshare_withdraw
   .description('withdraw GNX or ETH from the pre-set wallet')
@@ -160,7 +164,7 @@ function sendGNX(keystore,pwDerivedKey){
         var web3 = new Web3(web3.currentProvider);
       } else {
         // set the provider you want from Web3.providers
-        var web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/wYBhtj2SSUB7qlztqEjx"));
+        var web3 = new Web3(new Web3.providers.HttpProvider(web3Provider));
         web3.eth.getGasPrice()
         .then((gp)=>{
             gasPrice = gp
@@ -222,7 +226,7 @@ function sendETH(keystore,pwDerivedKey){
         var web3 = new Web3(web3.currentProvider);
       } else {
         // set the provider you want from Web3.providers
-        var web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/wYBhtj2SSUB7qlztqEjx"));
+        var web3 = new Web3(new Web3.providers.HttpProvider(web3Provider));
         web3.eth.getGasPrice()
         .then((gp)=>{
          gasPrice = gp

@@ -18,6 +18,7 @@ const Tx = require('ethereumjs-tx');
 const blindfold = require('blindfold');
 const Web3 = require("web3");
 const {homedir} = require('os');
+var prompt = require('prompt');
 
 const KEYSTORE_DIRECTORY = path.resolve(__dirname, '../keystore');
 const CONTRACT_DIRECTORY = path.resolve(__dirname, '../contract');
@@ -25,9 +26,16 @@ var keystore = require('eth-lightwallet').keystore;
 var txutils = require('eth-lightwallet').txutils;
 var signing = require('eth-lightwallet').signing;
 
-var GNXAddr = "0x1F84118c3B0f3f97c63B8e125456d76C78baBed5"
-var EmuAddr = "0xd0c419feC9541d23176A48648d3473d7E5185f70"
-var prompt = require('prompt');
+var GNXAddr, EmuAddr, web3Provider
+if(process.env.STORJ_NETWORK === "gtest"){
+  GNXAddr = "0x1F84118c3B0f3f97c63B8e125456d76C78baBed5"
+  EmuAddr = "0xd0c419feC9541d23176A48648d3473d7E5185f70"
+  web3Provider = 'https://ropsten.infura.io/CPKlwMsRTFVy6idI23Yb'
+} else {
+  GNXAddr = "0x6ec8a24cabdc339a06a172f8223ea557055adaa5";
+  EmuAddr = "0x279022fcaac7aeb29cab86b215da670b7ec2c98a"
+  web3Provider = 'https://mainnet.infura.io/CPKlwMsRTFVy6idI23Yb';
+}
 
 var abi;
 
@@ -200,7 +208,7 @@ function getAddressStaked(keystore,pwDerivedKey){
     var web3 = new Web3(web3.currentProvider);
   } else {
     // set the provider you want from Web3.providers
-    var web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/wYBhtj2SSUB7qlztqEjx"));
+    var web3 = new Web3(new Web3.providers.HttpProvider(web3Provider));
     web3.eth.getGasPrice()
     .then((gp)=>{
       gasPrice = gp
