@@ -93,7 +93,7 @@ function whichEditor() {
     const seed = bip39.generateMnemonic();
     console.log('THIS IS YOUR MNEMONIC, PLEASE WRITE DOWN. THIS WILL ONLY SHOW ONCE:')
     console.log(seed)
-    console.log('\nyou can import this mnemonic into other wallet software which supports BIP39')
+    console.log('\nyou can import this mnemonic into other wallet software which supports BIP39. Such as genaro eden, myetherwallet, imtoken.')
     var password = Buffer(_password).toString('hex');
     keystore.createVault({ password: password ,seedPhrase: seed,hdPathString: "m/44'/60'/0'/0"}, function(error, ks) {
       if (error) { reject(error); }
