@@ -26,15 +26,17 @@ var keystore = require('eth-lightwallet').keystore;
 var txutils = require('eth-lightwallet').txutils;
 var signing = require('eth-lightwallet').signing;
 
-var GNXAddr, EmuAddr, web3Provider
+var GNXAddr, EmuAddr, web3Provider, chainId
 if(process.env.STORJ_NETWORK === "gtest"){
   GNXAddr = "0x1F84118c3B0f3f97c63B8e125456d76C78baBed5"
   EmuAddr = "0xd0c419feC9541d23176A48648d3473d7E5185f70"
   web3Provider = 'https://ropsten.infura.io/CPKlwMsRTFVy6idI23Yb'
+  chainId = 3
 } else {
   GNXAddr = "0x6ec8a24cabdc339a06a172f8223ea557055adaa5";
   EmuAddr = "0x279022fcaac7aeb29cab86b215da670b7ec2c98a"
   web3Provider = 'https://mainnet.infura.io/CPKlwMsRTFVy6idI23Yb';
+  chainId = 0
 }
 
 var abi;
@@ -244,7 +246,7 @@ function getAddressStaked(keystore,pwDerivedKey){
                    from : keys[account].address,
                    to : GNXAddr,
                    data: Contract.methods.approveAndCall(EmuAddr,genaroshare_stake.quantity*10**9,_newstr).encodeABI(),
-                   chainId:3 //ropsten
+                   chainId: chainId //ropsten
                    // chainId:0 //mainnet
                }
   
