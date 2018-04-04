@@ -267,7 +267,7 @@ describe('module:utils', function() {
           }
         }
       });
-      _utils.checkDaemonRpcStatus(45015, (isRunning) => {
+      _utils.checkDaemonRpcStatus(45016, (isRunning) => {
         expect(isRunning).to.equal(true);
         done();
       });
@@ -285,7 +285,7 @@ describe('module:utils', function() {
           }
         }
       });
-      _utils.checkDaemonRpcStatus(45015, (isRunning) => {
+      _utils.checkDaemonRpcStatus(45016, (isRunning) => {
         expect(isRunning).to.equal(false);
         done();
       });
@@ -303,7 +303,7 @@ describe('module:utils', function() {
           connect: () => socket
         }
       });
-      _utils.connectToDaemon(45015, () => null);
+      _utils.connectToDaemon(45016, () => null);
       setImmediate(() => {
         socket.emit('error', new Error('Failed to connect'));
         setImmediate(() => {
@@ -323,7 +323,7 @@ describe('module:utils', function() {
           connect: () => socket
         }
       });
-      _utils.connectToDaemon(45015, (_rpc, sock) => {
+      _utils.connectToDaemon(45016, (_rpc, sock) => {
         expect(_rpc).to.equal(rpc);
         expect(sock).to.equal(socket);
         done();

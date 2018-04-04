@@ -150,7 +150,7 @@ the simplest way to change the daemon's behavior is to create a file at
 
 ```json
 {
-  "daemonRpcPort": 45015,
+  "daemonRpcPort": 45016,
   "daemonRpcAddress": "127.0.0.1",
   "daemonLogFilePath": "",
   "daemonLogVerbosity": 3
@@ -327,7 +327,7 @@ Genaro Share daemon 载入配置文件从任何
 
 ```json
 {
-  "daemonRpcPort": 45015,
+  "daemonRpcPort": 45016,
   "daemonRpcAddress": "127.0.0.1",
   "daemonLogFilePath": "",
   "daemonLogVerbosity": 3
