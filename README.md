@@ -365,3 +365,28 @@ genaroshare load
 4. 开启 daemon: genaroshare-daemon
 5. 开始 farming: genaroshare-start -c <配置文件路径>
 6. 查看分享状态 genaroshare-status
+
+# FAQ
+
+- 为什么需要 stake，我不 stake 能否用 sharer 分享?
+stake 行为的目的在于提高矿工们开启分享节点的积极性，尽可能保证大部分节点能够长期有效在线的机制。现在在完成 stake 前的，不能 start 分享节点，所以不 stake 不能分享。
+
+- Stake 的 GNX 可以取出来吗？
+Stake 时，除了设置 GNX 押注量（最低限制 5000 GNX）之外，还设置了锁定时间。押注的这一部分 GNX 在锁定期间内将无法使用。
+    
+- 什么是公网 ip ，没有公网 ip 是否能分享?
+IP 地址即 Internet Protocol Address，公网 IP 地址是任何接入 Internet 的设备都可以访问的 IP 地址，在 Internet 中是全球唯一的。所谓公网是 Internet 的接入方式，使得上网的计算机得到的IP地址是 Internet 上的非保留地址，公网的计算机和 Internet 上的其他计算机可以随意互相访问。对于家庭网络用户来说，你的 ISP (网络运营商，例如中国电信，联通等) 负责分配给你 IP，但是这个 IP 还不一定是公网 IP，需要到拨号的设备（一般是路由器，也有可能是路由器和 modern 二合一的设备）检查，如果不是公网 IP 那么您可以与你的 ISP 沟通。如果你运行 genaro sharer 的设备没有公网 IP 而路由器有，可以启用路由器的 Upnp 功能，或者自行设置端口转发，这样也同样可以分享。
+
+- 发现 sharer 运行问题怎么办？
+  - 可以自查原因，检查所使用的 sharer 是否是最新版本；或可通过sharer提示的错误，排查由于网络或计算机本身导致的 sharer 运行不正常的原因；
+  - 通过社区咨询解决方案；加入微信群请加微信管理员：imairei6221217 注明 Genaro Sharer 问题。
+  - 向 genaro 官方反馈问题，反馈问题是请提供计算机系统、版本、sharer 版本、问题现象、错误提示、日志等信息；邮件 eden@genaro.network
+
+- Linux 环境下的 genaroshare 是否能导入已经存在的钱包。如想把 IMtoken 钱包导入到 genaroshare 中?
+Linux 现在没有这个功能，Windows/Mac 的 GUI 版本可以。这个功能我们已经加入待开发列表。
+
+- 我可以用 NAS 设备运行 Sharer 吗？
+取决于你的 NAS 设备的配置，操作系统等。一般来说是可以的，但是 Genaro 团队没有测试所有型号的 NAS，不保证可以运行。另外操作 NAS 需要一定的技术基础，至少要熟悉 Linux 命令行(大部分 NAS 都是 linux 系统)，以及配置操作系统的 ip ，能够解决 Node 安装，编译时会遇到的各种问题。由于 NAS 品牌设备种类多，Genaro 团队不会对 NAS 设备的运行做专门的技术支持。
+
+- 节点配置问题，团队能否推荐好的节点配置？nas 做节点效率高还是电脑磁盘阵列效率高？
+对于磁盘没有很高的要求。通常情况下能否获得更多的分享取决于你的网络连接是否够快，与上传文件的用户的链接是否够快。以及是否持续稳定在线。
