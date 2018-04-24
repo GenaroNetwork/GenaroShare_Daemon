@@ -396,3 +396,40 @@ Linux 现在没有这个功能，Windows/Mac 的 GUI 版本可以。这个功能
 - 节点配置问题，团队能否推荐好的节点配置？nas 做节点效率高还是电脑磁盘阵列效率高？
 
 对于磁盘没有很高的要求。通常情况下能否获得更多的分享取决于你的网络连接是否够快，与上传文件的用户的链接是否够快。以及是否持续稳定在线。
+
+- 某些列不同的颜色都表示什么样的状态？
+
+Status/状态：
+
+灰色：stopped，未开启；
+
+绿色：running，正常运行；
+
+红色：errored，出错；
+
+
+Delta/延迟：
+
+绿色：延迟在500以内；
+
+红色：延迟超过500；
+
+
+Port/端口：
+
+绿色：非私网IP，且根据配置文件中的rpcAddress和rpcPort可成功建立socket连接；
+
+黄色：无法直接接受用户文件，但成功进行tunnel连接，可通过tunnel接受到文件；
+
+红色：配置文件中doNotTraverseNat（不进行Nat穿透）配置为true且不是公网IP；
+
+
+Bridges/桥接：
+
+灰色：disconnected，未连接；
+
+黄色：connecting，正在连接中；
+
+橙色：confirming，验证用户中；
+
+绿色：connected，正常连接；
