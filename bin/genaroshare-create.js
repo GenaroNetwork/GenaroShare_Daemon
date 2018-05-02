@@ -88,12 +88,18 @@ function whichEditor() {
   * Utility Functions
   */
 
- function createKeystore(_password) {
+ function createKeystore(_password, _seed) {
   return new Promise(function(resolve, reject) {
-    const seed = bip39.generateMnemonic();
-    console.log('THIS IS YOUR MNEMONIC, PLEASE WRITE DOWN. THIS WILL ONLY SHOW ONCE:')
-    console.log(seed)
-    console.log('\nyou can import this mnemonic into other wallet software which supports BIP39. Such as genaro eden, myetherwallet, imtoken.')
+    var seed = '';
+    if(_seed) {
+      seed = _seed;
+    }
+    else {
+      seed = bip39.generateMnemonic();
+      console.log('THIS IS YOUR MNEMONIC, PLEASE WRITE DOWN. THIS WILL ONLY SHOW ONCE:')
+      console.log(seed)
+      console.log('\nyou can import this mnemonic into other wallet software which supports BIP39. Such as genaro eden, myetherwallet, imtoken.')
+    }
     var password = Buffer(_password).toString('hex');
     keystore.createVault({ password: password ,seedPhrase: seed,hdPathString: "m/44'/60'/0'/0"}, function(error, ks) {
       if (error) { reject(error); }
@@ -237,9 +243,12 @@ if(!genaroshare_create.name){
 
 
 prompt.start();
-var Password;
+var Password, Seed;
 var schema ={
   properties:{
+    seed: {
+      description: 'Enter your mnemonic (If you already had a wallet and want to import it.Only support BIP39 specification)'
+    },
     password:{
       description: 'Enter your password',
       hidden:true,
@@ -251,9 +260,15 @@ var schema ={
 
 prompt.get(schema, function (err, result) {
    Password = result.password;
+   Seed = result.seed;
+
+   if(!keystore.isSeedValid(Seed)) {
+    console.error('\nYour mnemonic is invalid.');
+    process.exit(1);
+   }
 
 new Promise((resolve,reject)=>{
-    createKeystore(Password)
+    createKeystore(Password, Seed)
     .then(function(ks) {
       paymentAddress = ks.address;
       return saveProfile(genaroshare_create.name, ks.keystore, ks.address); })    
