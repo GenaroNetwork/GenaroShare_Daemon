@@ -8,7 +8,6 @@
   "bin": {
     "genaroshare": "bin/genaroshare.js",
     "genaroshare-start": "bin/genaroshare-start.js",
-    "genaroshare-stake": "bin/genaroshare-stake.js",
     "genaroshare-stop": "bin/genaroshare-stop.js",
     "genaroshare-restart": "bin/genaroshare-restart.js",
     "genaroshare-status": "bin/genaroshare-status.js",
@@ -18,10 +17,7 @@
     "genaroshare-killall": "bin/genaroshare-killall.js",
     "genaroshare-destroy": "bin/genaroshare-destroy.js",
     "genaroshare-daemon": "bin/genaroshare-daemon.js",
-    "genaroshare-create": "bin/genaroshare-create.js",
-    "genaroshare-checkreward": "bin/genaroshare-checkreward.js",
-    "genaroshare-getreward": "bin/genaroshare-getreward.js",
-    "genaroshare-withdraw": "bin/genaroshare-withdraw.js"
+    "genaroshare-create": "bin/genaroshare-create.js"
   },
   "bundleDependencies": false,
   "contributors": [

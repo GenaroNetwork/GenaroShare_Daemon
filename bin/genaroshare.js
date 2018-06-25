@@ -24,7 +24,6 @@ function checkIfValidSubcommand() {
 genaroshare
   .version(`daemon: ${version}, core: ${core}, protocol: ${protocol}`)
   .command('start', 'start a farming node')
-  .command('stake', 'stake the farming node')
   .command('stop', 'stop a farming node')
   .command('restart', 'restart a farming node')
   .command('status', 'check status of node(s)')
@@ -35,9 +34,6 @@ genaroshare
   .command('destroy', 'kills the farming node')
   .command('killall', 'kills all nodes and stops the daemon')
   .command('daemon', 'starts the daemon')
-  .command('withdraw','withdraw the token or eth from wallet')
-  .command('checkreward', 'check current stake and reward')
-  .command('getreward', 'get reward to wallet')
   .parse(process.argv);
 
 if (!checkIfValidSubcommand()) { 
