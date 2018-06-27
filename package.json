@@ -50,7 +50,6 @@
     "dnode": "^1.2.2",
     "du": "^0.1.0",
     "editor": "^1.0.0",
-    "eth-lightwallet": "^3.0.1",
     "ethereum-keyfile-recognizer": "^1.0.2",
     "fslogger": "^2.0.2",
     "is-number": "^5.0.0",
