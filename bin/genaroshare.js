@@ -29,6 +29,7 @@ genaroshare
   .command('status', 'check status of node(s)')
   .command('logs', 'tail the logs for a node')
   .command('create', 'create a new configuration')
+  .command('createWallet', 'create a new wallet')
   .command('save', 'snapshot the currently managed node')
   .command('load', 'load a snapshot of previously managed nodes')
   .command('destroy', 'kills the farming node')

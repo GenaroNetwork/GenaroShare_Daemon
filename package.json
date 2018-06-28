@@ -17,7 +17,8 @@
     "genaroshare-killall": "bin/genaroshare-killall.js",
     "genaroshare-destroy": "bin/genaroshare-destroy.js",
     "genaroshare-daemon": "bin/genaroshare-daemon.js",
-    "genaroshare-create": "bin/genaroshare-create.js"
+    "genaroshare-create": "bin/genaroshare-create.js",
+    "genaroshare-createWallet": "bin/genaroshare-createWallet.js"
   },
   "bundleDependencies": false,
   "contributors": [
@@ -54,6 +55,7 @@
     "fslogger": "^2.0.2",
     "is-number": "^5.0.0",
     "jsonfile": "^4.0.0",
+    "jswallet-manager": "github:GenaroNetwork/jswallet-manager.git",
     "kad-logger-json": "^0.1.2",
     "mkdirp": "^0.5.1",
     "pretty-ms": "^3.0.1",
