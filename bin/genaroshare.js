@@ -31,6 +31,7 @@ genaroshare
   .command('create', 'create a new configuration')
   .command('createWallet', 'create a new wallet')
   .command('listWallets', 'list wallets')
+  .command('deleteWallet', 'delete wallet')
   .command('save', 'snapshot the currently managed node')
   .command('load', 'load a snapshot of previously managed nodes')
   .command('destroy', 'kills the farming node')
