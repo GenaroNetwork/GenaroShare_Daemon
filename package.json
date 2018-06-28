@@ -53,6 +53,7 @@
     "editor": "^1.0.0",
     "ethereum-keyfile-recognizer": "^1.0.2",
     "fslogger": "^2.0.2",
+    "genaro-web3": "github:GenaroNetwork/genaro-web3.git",
     "is-number": "^5.0.0",
     "jsonfile": "^4.0.0",
     "jswallet-manager": "github:GenaroNetwork/jswallet-manager.git",
