@@ -21,19 +21,8 @@ var wm = walletManager.newWalletManager(walletsPath);
 
 genaroshare_createWallet
     .description('create a new wallet')
-    .option('-n, --name <name>', 'wallet name')
-    .option('-r, --remote <hostname:port>',
-        'hostname and optional port of the daemon')
+    .option('-n, --account <account>', 'wallet name')
     .parse(process.argv);
-
-let port = config.daemonRpcPort;
-let address = null;
-if (genaroshare_createWallet.remote) {
-    address = genaroshare_createWallet.remote.split(':')[0];
-    if (genaroshare_createWallet.remote.split(':').length > 1) {
-        port = parseInt(genaroshare_createWallet.remote.split(':')[1], 10);
-    }
-}
 
 var prompt = require('prompt');
 prompt.start();
@@ -67,7 +56,8 @@ prompt.get(schema, function (err, result) {
 
     var v3json, pk;
     try {
-        v3json = wm.importFromMnemonic(Mnemonic, Password, genaroshare_createWallet.name);
+        console.log(genaroshare_createWallet.account);
+        v3json = wm.importFromMnemonic(Mnemonic, Password, genaroshare_createWallet.account);
         pk = wm.exportPrivateKey(v3json.address, Password);
     }
     catch(e) {
