@@ -91,17 +91,21 @@ genaroshare --help
 
   Commands:
 
-    start       start a farming node
-    stake       stake the farming node
-    stop        stop a farming node
-    restart     restart a farming node
-    status      check status of node(s)
-    logs        tail the logs for a node
-    create      create a new configuration
-    destroy     kills the farming node
-    killall     kills all shares and stops the daemon
-    daemon      starts the daemon
-    help [cmd]  display help for [cmd]
+    start          start a farming node
+    stake          stake the farming node
+    addNodes       add storage nodes
+    stop           stop a farming node
+    restart        restart a farming node
+    status         check status of node(s)
+    logs           tail the logs for a node
+    create         create a new configuration
+    destroy        kills the farming node
+    killall        kills all shares and stops the daemon
+    createWallet   create a new wallet
+    listWallets    list wallets
+    deleteWallet   delete wallet
+    daemon         starts the daemon
+    help [cmd]     display help for [cmd]
 
   Options:
 
@@ -189,7 +193,7 @@ genaroshare load
 中文说明
 ==================
 
-Daemon + CLI 是在 Genaroi Network 上面 farming 的软件, 可以独立使用，也可以用在其他的软件中.
+Daemon + CLI 是在 Genaro Network 上面 farming 的软件, 可以独立使用，也可以用在其他的软件中.
 
 ## 手动安装
 
@@ -272,17 +276,21 @@ genaroshare --help
 
   Commands:
 
-    start       start a farming node
-    stake       stake the farming node    
-    stop        stop a farming node
-    restart     restart a farming node
-    status      check status of node(s)
-    logs        tail the logs for a node
-    create      create a new configuration
-    destroy     kills the farming node
-    killall     kills all shares and stops the daemon
-    daemon      starts the daemon
-    help [cmd]  display help for [cmd]
+    start          start a farming node
+    stake          stake the farming node
+    addNodes       add storage nodes
+    stop           stop a farming node
+    restart        restart a farming node
+    status         check status of node(s)
+    logs           tail the logs for a node
+    create         create a new configuration
+    destroy        kills the farming node
+    killall        kills all shares and stops the daemon
+    createWallet   create a new wallet
+    listWallets    list wallets
+    deleteWallet   delete wallet
+    daemon         starts the daemon
+    help [cmd]     display help for [cmd]
 
   Options:
 
@@ -301,8 +309,6 @@ genaroshare help create
 
   Options:
 
-    --name <name>              specify the account name(required)
-    --password <password>      specify the account password(required)
     --key <privkey>            specify the private key
     --storage <path>           specify the storage path
     --size <maxsize>           specify node size (ex: 10GB, 1TB)
@@ -361,20 +367,21 @@ genaroshare load
 在安装 genaroshare 完成后需要做以下操作开始分享硬盘
 1. 创建配置文件: genaroshare-create 。完成后输出配置文件路径。
 2. 按照需求，修改创建好的配置文件
-3. 使用genaroshare-stake开始stake自己的nodeid。完成后会获得一个txhash。
-4. 开启 daemon: genaroshare-daemon
-5. 开始 farming: genaroshare-start -c <配置文件路径>
-6. 查看分享状态 genaroshare-status
+3. 使用genaroshare-stake开始stake自己的钱包。完成后会获得一个txhash。
+4. 使用genaroshare-addNodes将刚才创建的节点添加到自己的钱包下。完成后会获得一个txhash
+5. 开启 daemon: genaroshare-daemon
+6. 开始 farming: genaroshare-start -c <配置文件路径>
+7. 查看分享状态 genaroshare-status
 
 # FAQ
 
 - 为什么需要 stake，我不 stake 能否用 sharer 分享?
 
-stake 行为的目的在于提高矿工们开启分享节点的积极性，尽可能保证大部分节点能够长期有效在线的机制。现在在完成 stake 前的，不能 start 分享节点，所以不 stake 不能分享。
+stake 行为的目的在于提高矿工们开启分享节点的积极性，尽可能保证大部分节点能够长期有效在线的机制。不进行stake也能进行分享，但是在不stake的情况下，无法使用addNodes将节点和钱包地址绑定来获取收益。
 
 - Stake 的 GNX 可以取出来吗？
 
-Stake 时，除了设置 GNX 押注量（最低限制 5000 GNX）之外，还设置了锁定时间。押注的这一部分 GNX 在锁定期间内将无法使用。
+Stake 时，除了设置 GNX 押注量之外。押注的这一部分 GNX 在退注前将无法使用。
     
 - 什么是公网 ip ，没有公网 ip 是否能分享?
 
