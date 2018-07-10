@@ -53,7 +53,7 @@ prompt.get(schema, function (err, result) {
             console.log('\n You have successfully created a new wallet.');
             console.log('THIS IS YOUR WALLET ADDR, PRIVATE KEY AND MNEMONIC, PLEASE WRITE DOWN. THIS WILL ONLY SHOW ONCE:\n');
             console.log('wallet address: ' + result.address);
-            console.log('private key: 0x' + result.pk);
+            console.log('private key: ' + result.pk);
             console.log('mnemonic:' + result.mnemonic);
             console.log('\nYou can import this key into other wallet software')
             sock.end();
