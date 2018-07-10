@@ -18,7 +18,12 @@
     "genaroshare-destroy": "bin/genaroshare-destroy.js",
     "genaroshare-daemon": "bin/genaroshare-daemon.js",
     "genaroshare-create": "bin/genaroshare-create.js",
-    "genaroshare-createWallet": "bin/genaroshare-createWallet.js"
+    "genaroshare-createWallet": "bin/genaroshare-createWallet.js",
+    "genaroshare-listWallets": "bin/genaroshare-listWallets.js",
+    "genaroshare-deleteWallet": "bin/genaroshare-deleteWallet.js",
+    "genaroshare-stake": "bin/genaroshare-stake.js",
+    "genaroshare-addNodes": "bin/genaroshare-addNodes.js",
+    "genaroshare-removeNode": "bin/genaroshare-removeNode.js"
   },
   "bundleDependencies": false,
   "contributors": [
