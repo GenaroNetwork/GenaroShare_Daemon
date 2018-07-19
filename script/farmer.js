@@ -4,7 +4,7 @@
 
 require('../bin/globalsetting')
 const utils = require('../lib/utils');
-const storj = require('storj-lib');
+const storj = require('genaro-lib');
 const Logger = require('kad-logger-json');
 const config = JSON.parse(JSON.stringify(require('../lib/config/farmer')));
 const bytes = require('bytes');

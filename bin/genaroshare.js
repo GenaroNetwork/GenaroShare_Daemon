@@ -5,7 +5,7 @@
 require('./globalsetting');
 const genaroshare = require('commander');
 const {version, bin} = require('../package');
-const {software: core, protocol} = require('storj-lib').version;
+const {software: core, protocol} = require('genaro-lib').version;
 
 console.log(core);
 console.log(protocol);
