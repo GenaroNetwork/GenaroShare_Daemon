@@ -18,6 +18,13 @@
             "request": "launch",
             "name": "Launch Program",
             "program": "${workspaceFolder}/index.js"
-        }
+        },
+        {
+            "type": "node",
+            "request": "attach",
+            "name": "Attach to Remote2",
+            "address": "192.168.0.55",
+            "port": 32769
+        },
     ]
 }

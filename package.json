@@ -1,6 +1,6 @@
 {
   "name": "genaroshare-daemon",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "author": {
     "name": "Alexander Leitner",
     "email": "alex@storj.io"
@@ -69,7 +69,7 @@
     "prompt": "^1.0.0",
     "rc": "^1.2.2",
     "read": "^1.0.7",
-    "storj-lib": "^8.5.0",
+    "storj-lib": "GenaroNetwork/core",
     "strip-json-comments": "^2.0.1",
     "tail": "^1.2.3",
     "touch": "3.1.0",
