@@ -37,7 +37,8 @@ genaroshare
   .command('destroy', 'kills the farming node')
   .command('killall', 'kills all nodes and stops the daemon')
   .command('stake', 'starts stake to share the storage')
-  .command('addNodes', 'add storage nodes')
+  .command('addNode', 'add storage node')
+  .command('getNodeToken', 'get node token')
   .command('daemon', 'starts the daemon')
   .parse(process.argv);
 

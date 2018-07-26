@@ -22,7 +22,7 @@
     "genaroshare-listWallets": "bin/genaroshare-listWallets.js",
     "genaroshare-deleteWallet": "bin/genaroshare-deleteWallet.js",
     "genaroshare-stake": "bin/genaroshare-stake.js",
-    "genaroshare-addNodes": "bin/genaroshare-addNodes.js",
+    "genaroshare-addNode": "bin/genaroshare-addNode.js",
     "genaroshare-removeNode": "bin/genaroshare-removeNode.js"
   },
   "bundleDependencies": false,

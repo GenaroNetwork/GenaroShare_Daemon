@@ -368,7 +368,7 @@ genaroshare load
 1. 创建配置文件: genaroshare-create 。完成后输出配置文件路径。
 2. 按照需求，修改创建好的配置文件
 3. 使用genaroshare-stake开始stake自己的钱包。完成后会获得一个txhash。
-4. 使用genaroshare-addNodes将刚才创建的节点添加到自己的钱包下。完成后会获得一个txhash
+4. 使用genaroshare-addNode将刚才创建的节点添加到自己的钱包下。完成后会获得一个txhash
 5. 开启 daemon: genaroshare-daemon
 6. 开始 farming: genaroshare-start -c <配置文件路径>
 7. 查看分享状态 genaroshare-status
