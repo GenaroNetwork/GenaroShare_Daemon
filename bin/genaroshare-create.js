@@ -127,7 +127,7 @@ if (!genaroshare_create.storage) {
 }
 
 if (!genaroshare_create.outfile) {
-  const configDir = path.join(homedir(), '.config/genaroshare/configs');
+  const configDir = path.join(homedir(), '.config/genaroshare/configs_testchain');
   genaroshare_create.outfile = path.join(
     configDir, storj.KeyPair(genaroshare_create.key).getNodeID() + '.json'
   );

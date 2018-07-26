@@ -6,50 +6,52 @@ require('./globalsetting');
 
 const config = require('../lib/config/daemon');
 const utils = require('../lib/utils');
-const genaroshare_addNodes = require('commander');
+const genaroshare_addNode = require('commander');
 
 const DEFAULT_GASPRICE = 10;
 const DEFAULT_GASLIMIT = 210000;
 
-genaroshare_addNodes
-    .description('add storage nodes')
+genaroshare_addNode
+    .description('add storage node')
     .option('-a, --address <address>', 'wallet address(required)')
-    .option('-n, --nodes <nodes>', 'set nodes for add(required)')
-    .option('--gasPrice <gasPrice>', 'set the gasPrice(Gwei), default: ' + DEFAULT_GASPRICE)
-    .option('--gasLimit <gasLimit>', 'set the gasLimit, default: ' + DEFAULT_GASLIMIT)
+    .option('-n, --nodeId <nodeId>', 'id of the node(required)')
+    .option('-t, --token <token>', 'set node token for add(required)')
+    .option('--gasPrice <gasPrice>', 'set the gasPrice(Gan), default: ' + DEFAULT_GASPRICE)
+    .option('--gasLimit <gasLimit>', 'set the gasLimit(An), default: ' + DEFAULT_GASLIMIT)
     .option('-r, --remote <hostname:port>',
         'hostname and optional port of the daemon')
     .parse(process.argv);
 
-if (!genaroshare_addNodes.address) {
+if (!genaroshare_addNode.address) {
     console.error('\n  missing address, try --help');
     process.exit(1);
 }
 
-var nodes = [];
-if (!genaroshare_addNodes.nodes) {
-    console.error('\n  missing nodes, try --help');
+if (!genaroshare_addNode.nodeId) {
+    console.error('\n  missing nodeId, try --help');
     process.exit(1);
 }
-else {
-    nodes = genaroshare_addNodes.nodes.split(',');
+
+if (!genaroshare_addNode.token) {
+    console.error('\n  missing token, try --help');
+    process.exit(1);
 }
 
-if (!genaroshare_addNodes.gasPrice) {
-    genaroshare_addNodes.gasPrice = DEFAULT_GASPRICE;
+if (!genaroshare_addNode.gasPrice) {
+    genaroshare_addNode.gasPrice = DEFAULT_GASPRICE;
 }
-genaroshare_addNodes.gasPrice *= 10 ** 9;
+genaroshare_addNode.gasPrice *= 10 ** 9;
 
-if (!genaroshare_addNodes.gasLimit) {
-    genaroshare_addNodes.gasLimit = DEFAULT_GASLIMIT;
+if (!genaroshare_addNode.gasLimit) {
+    genaroshare_addNode.gasLimit = DEFAULT_GASLIMIT;
 }
 
 let port = config.daemonRpcPort;
 let address = null;
-if (genaroshare_addNodes.remote) {
-    address = genaroshare_addNodes.remote.split(':')[0];
-    if (genaroshare_addNodes.remote.split(':').length > 1) {
-        port = parseInt(genaroshare_addNodes.remote.split(':')[1], 10);
+if (genaroshare_addNode.remote) {
+    address = genaroshare_addNode.remote.split(':')[0];
+    if (genaroshare_addNode.remote.split(':').length > 1) {
+        port = parseInt(genaroshare_addNode.remote.split(':')[1], 10);
     }
 }
 
@@ -71,7 +73,7 @@ prompt.get(schema, function (err, result) {
     Password = result.password;
 
     utils.connectToDaemon(port, function (rpc, sock) {
-        rpc.addNodes(genaroshare_addNodes.address, Password, nodes, genaroshare_addNodes.gasPrice, genaroshare_addNodes.gasLimit, (err, data) => {
+        rpc.addNode(genaroshare_addNode.address, Password, genaroshare_addNode.nodeId, genaroshare_addNode.token, genaroshare_addNode.gasPrice, genaroshare_addNode.gasLimit, (err, data) => {
             if (err) {
                 console.error(`\n  addNodes error, reason: ${err.message}`);
                 return sock.end();
