@@ -14,7 +14,6 @@ const DEFAULT_GASLIMIT = 210000;
 genaroshare_addNode
     .description('add storage node')
     .option('-a, --address <address>', 'wallet address(required)')
-    .option('-n, --nodeId <nodeId>', 'id of the node(required)')
     .option('-t, --token <token>', 'set node token for add(required)')
     .option('--gasPrice <gasPrice>', 'set the gasPrice(Gan), default: ' + DEFAULT_GASPRICE)
     .option('--gasLimit <gasLimit>', 'set the gasLimit(An), default: ' + DEFAULT_GASLIMIT)
@@ -24,11 +23,6 @@ genaroshare_addNode
 
 if (!genaroshare_addNode.address) {
     console.error('\n  missing address, try --help');
-    process.exit(1);
-}
-
-if (!genaroshare_addNode.nodeId) {
-    console.error('\n  missing nodeId, try --help');
     process.exit(1);
 }
 
@@ -73,7 +67,12 @@ prompt.get(schema, function (err, result) {
     Password = result.password;
 
     utils.connectToDaemon(port, function (rpc, sock) {
-        rpc.addNode(genaroshare_addNode.address, Password, genaroshare_addNode.nodeId, genaroshare_addNode.token, genaroshare_addNode.gasPrice, genaroshare_addNode.gasLimit, (err, data) => {
+        let token = genaroshare_addNode.token;
+        let ts = token.split('--');
+        if(ts.length < 2) {
+            return console.error(`\n token error`);
+        }
+        rpc.addNode(genaroshare_addNode.address, Password, ts[1], ts[0], genaroshare_addNode.gasPrice, genaroshare_addNode.gasLimit, (err, data) => {
             if (err) {
                 console.error(`\n  addNodes error, reason: ${err.message}`);
                 return sock.end();
