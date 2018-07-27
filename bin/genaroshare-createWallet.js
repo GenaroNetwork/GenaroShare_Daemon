@@ -75,6 +75,15 @@ prompt.get(schema, function (err, result) {
             });
         }
         else if (V3json) {
+            if(V3json.search('.json')==-1){
+                console.log(`not json file`)
+                return sock.end();
+            }
+            if (!fs.existsSync(V3json)){
+                console.log(`\n  no such file`);
+                return sock.end();
+            }
+            console.log('   entering ')
             var data=fs.readFileSync(V3json,'utf-8');
             var json=JSON.parse(data);
             rpc.createWalletByV3json(json, Password, genaroshare_createWallet.account, (err, result) => {
