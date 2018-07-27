@@ -6,7 +6,8 @@ require('./globalsetting');
 const config = require('../lib/config/daemon');
 const utils = require('../lib/utils');
 const genaroshare_createWallet = require('commander');
-const fs=require('fs');
+const fs = require('fs');
+const path = require('path');
 
 genaroshare_createWallet
     .description('create a new wallet')
@@ -75,17 +76,13 @@ prompt.get(schema, function (err, result) {
             });
         }
         else if (V3json) {
-            if(V3json.search('.json')==-1){
-                console.log(`not json file`)
+            if (!fs.existsSync(V3json)||path.extname(V3json) != '.json') {
+                console.log(`no such file`);
                 return sock.end();
             }
-            if (!fs.existsSync(V3json)){
-                console.log(`\n  no such file`);
-                return sock.end();
-            }
-            console.log('   entering ')
-            var data=fs.readFileSync(V3json,'utf-8');
-            var json=JSON.parse(data);
+
+            var data = fs.readFileSync(V3json, 'utf-8');
+            var json = JSON.parse(data);
             rpc.createWalletByV3json(json, Password, genaroshare_createWallet.account, (err, result) => {
                 if (err) {
                     console.error(`\n  cannot create wallet, reason: ${err.message}`);
