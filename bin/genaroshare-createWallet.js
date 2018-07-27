@@ -6,11 +6,12 @@ require('./globalsetting');
 const config = require('../lib/config/daemon');
 const utils = require('../lib/utils');
 const genaroshare_createWallet = require('commander');
+const fs=require('fs');
 
 genaroshare_createWallet
     .description('create a new wallet')
     .option('-n, --account <account>', 'wallet name')
-    .option('-t, --type <import wallet type>', 'import wallet type, can be "privateKey" or "mnemonic"')
+    .option('-t, --type <import wallet type>', 'import wallet type, can be "privateKey","mnemonic","v3json"')
     .option('-r, --remote <hostname:port>',
         'hostname and optional port of the daemon')
     .parse(process.argv);
@@ -26,7 +27,7 @@ if (genaroshare_createWallet.remote) {
 
 var prompt = require('prompt');
 prompt.start();
-var Password, Mnemonic, PrivateKey;
+var Password, Mnemonic, PrivateKey, V3json;
 var schema = {
     properties: {
         password: {
@@ -48,11 +49,17 @@ else if (genaroshare_createWallet.type === 'mnemonic') {
         description: 'Enter your mnemonic (If you already had a wallet and want to import it.Only support BIP39 specification)'
     };
 }
+else if (genaroshare_createWallet.type === 'v3json') {
+    schema.properties.v3json = {
+        description: 'Enter your v3json file path'
+    }
+}
 
 prompt.get(schema, function (err, result) {
     Password = result.password;
     Mnemonic = result.mnemonic;
     PrivateKey = result.privateKey;
+    V3json = result.v3json;
 
     utils.connectToDaemon(port, function (rpc, sock) {
         if (PrivateKey) {
@@ -62,6 +69,20 @@ prompt.get(schema, function (err, result) {
                     return sock.end();
                 }
                 console.log('\n You have successfully imported a wallet.');
+                console.log('THIS IS YOUR WALLET ADDR:\n');
+                console.log('wallet address: ' + result.address);
+                sock.end();
+            });
+        }
+        else if (V3json) {
+            var data=fs.readFileSync(V3json,'utf-8');
+            var json=JSON.parse(data);
+            rpc.createWalletByV3json(json, Password, genaroshare_createWallet.account, (err, result) => {
+                if (err) {
+                    console.error(`\n  cannot create wallet, reason: ${err.message}`);
+                    return sock.end();
+                }
+                console.log('\n You have successfully imported a wallet by json.');
                 console.log('THIS IS YOUR WALLET ADDR:\n');
                 console.log('wallet address: ' + result.address);
                 sock.end();
