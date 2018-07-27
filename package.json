@@ -1,6 +1,6 @@
 {
   "name": "genaroshare-daemon",
-  "version": "1.4.4",
+  "version": "1.4.6",
   "author": {
     "name": "Alexander Leitner",
     "email": "alex@storj.io"
@@ -22,7 +22,7 @@
     "genaroshare-listWallets": "bin/genaroshare-listWallets.js",
     "genaroshare-deleteWallet": "bin/genaroshare-deleteWallet.js",
     "genaroshare-stake": "bin/genaroshare-stake.js",
-    "genaroshare-addNodes": "bin/genaroshare-addNodes.js",
+    "genaroshare-addNode": "bin/genaroshare-addNode.js",
     "genaroshare-removeNode": "bin/genaroshare-removeNode.js"
   },
   "bundleDependencies": false,
@@ -58,6 +58,7 @@
     "du": "^0.1.0",
     "editor": "^1.0.0",
     "ethereum-keyfile-recognizer": "^1.0.2",
+    "ethereumjs-util": "^5.2.0",
     "fslogger": "^2.0.2",
     "genaro-web3": "^0.5.1",
     "is-number": "^5.0.0",
